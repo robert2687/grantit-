@@ -1,0 +1,104 @@
+export interface Project {
+  id: string;
+  name: string;
+  summary: string;
+  objectives: string;
+  targetImpact: string;
+  technologyArea: string;
+  teamMembers: string;
+  trlLevel: string;
+  additionalNotes: string;
+}
+
+export interface UserProfile {
+  firstName: string;
+  lastName: string;
+  dob: string;
+  gender: string;
+  country: string;
+  city: string;
+  photoUrl: string;
+  bio: string;
+  profession: string;
+  industry: string;
+  yearsOfExperience: string;
+  skills: string;
+  certifications: string;
+  website: string;
+  preferredGrantTypes: string;
+  preferredRegions: string;
+  fundingSizeRange: string;
+  projectThemes: string;
+  preferredDeadlines: string;
+}
+
+export interface Grant {
+  id: string;
+  name: string;
+  region: string;
+  amount: string;
+  deadline: string;
+  eligibility: string;
+  themes: string[];
+  sourceLink: string;
+  fitScore: number;
+  relevance: string;
+  status: 'discovered' | 'evaluating' | 'writing' | 'submitted' | 'rejected';
+}
+
+export interface Evaluation {
+  grantId: string;
+  eligibilityMatch: number;
+  thematicFit: number;
+  innovationStrength: number;
+  trlAlignment: string;
+  geographicFit: number;
+  consortiumReqs: string;
+  budgetFeasibility: string;
+  adminComplexity: string;
+  competitionLevel: string;
+  overallScore: number;
+  justification: string;
+  risks: string[];
+  recommendations: string[];
+  decision: 'Go' | 'No-Go';
+}
+
+export interface ProposalReview {
+  grantId: string;
+  completenessScore: number;
+  incompleteSections: string[];
+  evidenceGaps: string[];
+  unaddressedCriteria: string[];
+  actionableFeedback: string[];
+  potentialRisks: string[];
+  strengtheningSuggestions: string[];
+  overallFeedback: string;
+}
+
+export interface EUAdminData {
+  program: 'Horizon Europe' | 'EIC Accelerator' | 'Digital Europe' | 'Erasmus+' | 'Interreg' | 'CEF' | 'Other';
+  picValidation: { status: 'valid' | 'invalid' | 'missing' | 'pending'; pic?: string; message: string };
+  consortium: { partnerName: string; pic: string; role: 'Coordinator' | 'Partner' | 'Affiliated Entity'; country: string; status: 'confirmed' | 'pending' | 'missing' }[];
+  workPackages: { wpNumber: number; title: string; leader: string; status: 'draft' | 'final' | 'missing' }[];
+  ethicsAndData: { requirement: string; status: 'compliant' | 'action needed' | 'missing' }[];
+  budget: { category: 'Personnel' | 'Subcontracting' | 'Travel' | 'Other Direct Costs' | 'Indirect Costs'; amount: number; status: 'aligned' | 'over limit' | 'under limit' | 'missing' }[];
+  trlAlignment: { expectedTRL: string; currentTRL: string; status: 'aligned' | 'misaligned' | 'unknown' };
+  euReadinessScore: number;
+}
+
+export interface AdminData {
+  grantId: string;
+  tasks: { name: string; deadline: string; status: 'completed' | 'in progress' | 'missing' | 'overdue' }[];
+  documents: { name: string; status: 'completed' | 'in progress' | 'missing' | 'overdue' }[];
+  submissionReadiness: { indicator: string; status: 'completed' | 'in progress' | 'missing' | 'overdue' }[];
+  complianceWarnings: { warning: string; status: 'completed' | 'in progress' | 'missing' | 'overdue' }[];
+  alerts?: {
+    type: 'deadline' | 'document' | 'registration' | 'task' | 'guideline';
+    message: string;
+    severity: 'high' | 'medium' | 'low';
+    affectedItems: string[];
+    nextSteps: string;
+  }[];
+  euData?: EUAdminData;
+}
